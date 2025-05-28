@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+long x = 0;
 
 int main() {
     struct sched_param param;
@@ -14,7 +15,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    while (1) { /* do nothing */ }
+    while (1) { x++; }
 
     return 0;
 }
