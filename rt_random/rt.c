@@ -10,11 +10,11 @@ int main() {
 
     param.sched_priority = 1;
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1) {
-        perror("sched_setscheduler para proceso main");
+        perror("sched_setscheduler - main");
         exit(EXIT_FAILURE);
     }
 
-    while (1) { /* xd*/ }
+    while (1) { /* do nothing */ }
 
     return 0;
 }

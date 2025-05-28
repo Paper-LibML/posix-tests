@@ -19,17 +19,17 @@ int main() {
     pthread_attr_t attr;
     struct sched_param param;
     int ids[N];
-    int prioridad_comun = 1;  // prioridad RT común para todos los threads
+    int common_prio = 1;  // rt_priority for common threads
 
     struct sched_param main_param;
 
-    // Establecer prioridad RT del proceso maestro
+    // Set rt_priority for main process
     main_param.sched_priority = 1;
     if (sched_setscheduler(0, SCHED_FIFO, &main_param) == -1) {
-        perror("sched_setscheduler para proceso main");
+        perror("sched_setscheduler - main process");
         exit(EXIT_FAILURE);
     }
-    printf("Proceso principal con prioridad RT = %d\n", main_param.sched_priority);
+    printf("Main process with rt_priority = %d\n", main_param.sched_priority);
 
     for (int i = 0; i < N; i++) {
         pthread_attr_init(&attr);
@@ -37,7 +37,7 @@ int main() {
         pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
         pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
 
-        param.sched_priority = prioridad_comun;
+        param.sched_priority = common_prio;
         pthread_attr_setschedparam(&attr, &param);
 
         ids[i] = i;
